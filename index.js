@@ -46,7 +46,7 @@ function isPlaindrome(str) {
 function CapitalizeLetters(str) {
     //use regular expression to include multiple char seperation like space,?,: etc
     let strArray = str.toLowerCase().split(/[' ',':']/);
-    //is regular experssion has parentheses the method will include matched results ib the array
+    //if regular experssion has parentheses the method will include matched results in the array
     //let strArray = str.toLowerCase().split(/([' ',':'])/);
 
     //If only space has to be considered 
@@ -57,14 +57,7 @@ function CapitalizeLetters(str) {
         strArray[i] = strArray[i].substring(0, 1).toUpperCase() +
             strArray[i].substring(1);
     }
-    //return strArray.join(' ');
-
-    //using higher order map 
-    return str
-        .toLowerCase()
-        .split(/[' ',':']/)
-        .map(word => word[0].toUpperCase() + word.substr(1)
-        ).join(' ');
+    return strArray.join(' ');
 }
 
 //function to reverse integer in javascript
@@ -77,6 +70,31 @@ function CapitalizeLettersUsingMap(str) {
         .map(word => word[0].toUpperCase() + word.substr(1)
         ).join(' ');
 }
+
+//function to get maximum char in word or sentence
+//input:i love javascript
+function GetMaxChar(str) {
+    let charmap = {};
+    let charMax='';
+    let maxNum=0;
+    str.split('').forEach(element => {
+        if (charmap[element])
+            charmap[element]++;
+        else
+            charmap[element] = 1;
+    });
+    for(let char in charmap)
+    {
+        if(charmap[char]>maxNum)
+            {
+                charmax=char;
+                maxNum=charmap[char]
+            }
+    }
+    return {charmax:charmax , maxNum:maxNum};
+}
+
+
 const output = reverseString("good");
 console.log(`The reverse string is ${output}`);
 
@@ -95,3 +113,7 @@ console.log(`The capitalized string is ${cap}`);
 
 const capMap = CapitalizeLettersUsingMap("i love my:shoe");
 console.log(`The capitalized string using map is ${capMap}`);
+
+let result= GetMaxChar("javascriptttt");
+console.log(`The maximum repeated character is ${result.charmax}`);
+console.log(`The maximum character is ${result.maxNum}`);
