@@ -94,6 +94,52 @@ function GetMaxChar(str) {
     return {charmax:charmax , maxNum:maxNum};
 }
 
+//function to get maximum char in word or sentence
+//input:i love javascript
+function GetMaxRepeatedWord(str) {
+    let charmap = {};
+    let charMax='';
+    let maxNum=0;
+    str.split(/[' ',':']/).forEach(element => {
+        if (charmap[element])
+            charmap[element]++;
+        else
+            charmap[element] = 1;
+    });
+    console.log(charmap);
+    for(let char in charmap)
+    {
+        if(charmap[char]>1)
+            {
+               
+                charmax=char;
+                maxNum=charmap[char]
+                console.log(`word ${charmax} is repeated ${maxNum} times`);
+            }
+    }
+    if(maxNum>1)
+      return {charmax:charmax , maxNum:maxNum};
+      else
+      return{charmax:null , maxNum:0}
+}
+
+function GetLongestWord(sentence) {
+   
+    //Remove any commas
+   const wordArray= sentence.toLowerCase().match(/[a-z0-9]+/g);
+
+   //sort the array by lenght
+   const sortedArray= wordArray.sort((a,b)=>b.length-a.length);
+
+   //if multiple words of same length then put them into a array
+   const longestArray= sortedArray.filter(word=>word.length==sortedArray[0].length);
+   
+   if(longestArray.length === 1)
+   return longestArray[0];
+   else
+   return longestArray;
+
+}
 
 const output = reverseString("good");
 console.log(`The reverse string is ${output}`);
@@ -117,3 +163,14 @@ console.log(`The capitalized string using map is ${capMap}`);
 let result= GetMaxChar("javascriptttt");
 console.log(`The maximum repeated character is ${result.charmax}`);
 console.log(`The maximum character is ${result.maxNum}`);
+
+
+let result= GetMaxRepeatedWord("I love school a I a I school");
+console.log(`The maximum repeated word is ${result.charmax}`);
+console.log(`The word ${result.charmax} is repeated ${result.maxNum} times`);
+
+
+let result= GetLongestWord("Greek Yoghurt is yummy");
+console.log(`The longest word is/are ${result}`);
+
+
